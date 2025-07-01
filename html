@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+    triggers {
+        githubPush() // Webhook
+    }
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git branch: 'main', url: 'https://github.com/gagan1o/Html-jenkins.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    writeFile file: 'Dockerfile', text: """
+                    FROM nginx:alpine
+                    COPY simple.html /usr/share/nginx/html/index.html
+                    """
+
+                    bat 'docker build -t gagan-html .'
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    bat 'docker rm -f html-container || exit 0'
+                    bat 'docker run -d -p 8082:80 --name html-container gagan-html'
+                }
+            }
+        }
+    }
+}
