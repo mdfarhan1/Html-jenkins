@@ -1,36 +1,39 @@
-pipeline {
-    agent any
-    triggers {
-        githubPush() // Webhook
-    }
-
-    stages {
-        stage('Clone Repo') {
-            steps {
-                git branch: 'main', url: 'https://github.com/gagan1o/Html-jenkins.git'
-            }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Styled Website</title>
+    <style>
+        body {
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
         }
-
-        stage('Build Docker Image') {
-            steps {
-                script {
-                    writeFile file: 'Dockerfile', text: """
-                    FROM nginx:alpine
-                    COPY simple.html /usr/share/nginx/html/index.html
-                    """
-
-                    bat 'docker build -t gagan-html .'
-                }
-            }
+        h1 {
+            color: #2a9d8f;
         }
-
-        stage('Run Docker Container') {
-            steps {
-                script {
-                    bat 'docker rm -f html-container || exit 0'
-                    bat 'docker run -d -p 8082:80 --name html-container gagan-html'
-                }
-            }
+        p {
+            color: #264653;
+            font-size: 20px;
         }
-    }
-}
+        .btn {
+            padding: 10px 20px;
+            background-color: #e76f51;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #d62828;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Gagan's Page</h1>
+    <p>This is a styled website running with Docker + Jenkins</p>
+    <button class="btn" onclick="alert('You clicked!')">Click Me</button>
+</body>
+</html>
