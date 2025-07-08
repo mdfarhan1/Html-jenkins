@@ -68,3 +68,7 @@ http://--your-server-ip--:8082 OR if running locally: http://localhost:8082
 ## 📬 Contributing
 
 Feel free to fork this repo and make it your own. Pull requests are welcome!
+
+## 📄 License
+
+This project is licensed under the MIT License.
